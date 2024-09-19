@@ -15,3 +15,5 @@ jobs:
           aws-region: ap-northeast-1
       - name: execute AWS CLI
         run: aws s3 ls
+      - name: get cloudfront config
+        run: aws cloudfront get-distribution-config --id E33EVMST0IMI3B > distribution-config.json
