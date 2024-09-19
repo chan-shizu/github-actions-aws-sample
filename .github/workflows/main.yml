@@ -38,6 +38,7 @@ jobs:
       - name: Update origin request policy in distribution config
         run: |
           sed -i 's/"OriginRequestPolicyId": "[^"]*"/"OriginRequestPolicyId": "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"/' distribution-config.json
+          sed -i '/"DefaultCacheBehavior"/,/OriginRequestPolicyId/ s/"OriginRequestPolicyId": "[^"]*"/"OriginRequestPolicyId": "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"/' distribution-config.json
 
       - name: cat
         run: cat distribution-config.json
