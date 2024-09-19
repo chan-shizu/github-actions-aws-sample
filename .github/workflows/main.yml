@@ -16,7 +16,7 @@ jobs:
       - name: execute AWS CLI
         run: aws s3 ls
       - name: get cloudfront config
-        run: aws cloudfront get-distribution-config --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}  --query "DistributionConfig" > distribution-config.json
+        run: aws cloudfront get-distribution-config --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --query "DistributionConfig" > distribution-config.json
 
       - name: pwd
         run: pwd
@@ -41,6 +41,9 @@ jobs:
 
       - name: cat
         run: cat distribution-config.json
+
+      - name: origin
+        run: aws cloudfront list-origin-request-policies --query 'OriginRequestPolicyList.Items[*].{ID:OriginRequestPolicy.Id,Name:OriginRequestPolicy.OriginRequestPolicyConfig.Name}'
 
       # 6. CloudFront ディストリビューションを更新
       - name: Update CloudFront distribution
