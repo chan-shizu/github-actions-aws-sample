@@ -16,7 +16,7 @@ jobs:
       - name: execute AWS CLI
         run: aws s3 ls
       - name: get cloudfront config
-        run: aws cloudfront get-distribution-config --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} > distribution-config.json
+        run: aws cloudfront get-distribution-config --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}  --query "DistributionConfig" > distribution-config.json
 
       - name: pwd
         run: pwd
