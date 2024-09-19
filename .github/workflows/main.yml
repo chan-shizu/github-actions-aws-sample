@@ -16,10 +16,28 @@ jobs:
       - name: execute AWS CLI
         run: aws s3 ls
       - name: get cloudfront config
-        run: aws cloudfront get-distribution-config --id E33EVMST0IMI3B > distribution-config.json
+        run: aws cloudfront get-distribution-config --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} > distribution-config.json
+
       - name: pwd
         run: pwd
       - name: ls
         run: ls
+      - name: cat
+        run: cat distribution-config.json
+
+      # 4. ETag の取得
+      - name: Extract ETag
+        id: extract_etag
+        run: |
+          etag=$(aws cloudfront get-distribution-config \
+            --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --query "ETag" --output text)
+          echo "::set-output name=etag::$etag"
+
+      # 5. Origin Request Policy を CORS-S3Origin に変更
+      - name: Update origin request policy in distribution config
+        run: |
+          sed -i 's/"OriginRequestPolicyId": "[^"]*"/"OriginRequestPolicyId": "088a5e82-23a4-4ebd-8a2a-41c4a4e3bd7a"/' distribution-config.json
+
       - name: cat
         run: cat distribution-config.json
