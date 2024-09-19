@@ -17,3 +17,7 @@ jobs:
         run: aws s3 ls
       - name: get cloudfront config
         run: aws cloudfront get-distribution-config --id E33EVMST0IMI3B > distribution-config.json
+      - name: pwd
+        run: pwd
+      - name: ls
+        run: ls
