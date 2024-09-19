@@ -37,7 +37,7 @@ jobs:
       # 5. Origin Request Policy を CORS-S3Origin に変更
       - name: Update origin request policy in distribution config
         run: |
-          sed -i 's/"OriginRequestPolicyId": "[^"]*"/"OriginRequestPolicyId": "88a5e82-23a4-4ebd-8a2a-41c4a4e3bd7a"/' distribution-config.json
+          sed -i 's/"OriginRequestPolicyId": "[^"]*"/"OriginRequestPolicyId": "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"/' distribution-config.json
 
       - name: cat
         run: cat distribution-config.json
