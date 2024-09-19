@@ -42,13 +42,13 @@ jobs:
       - name: cat
         run: cat distribution-config.json
 
-      # - name: origin
-      #   run: aws cloudfront list-origin-request-policies --query 'OriginRequestPolicyList.Items[*].{ID:OriginRequestPolicy.Id,Name:OriginRequestPolicy.OriginRequestPolicyConfig.Name}'
+      - name: origin
+        run: aws cloudfront list-origin-request-policies --query 'OriginRequestPolicyList.Items[*].{ID:OriginRequestPolicy.Id,Name:OriginRequestPolicy.OriginRequestPolicyConfig.Name}'
 
-      # # 6. CloudFront ディストリビューションを更新
-      # - name: Update CloudFront distribution
-      #   run: |
-      #     aws cloudfront update-distribution \
-      #       --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-      #       --if-match ${{ steps.extract_etag.outputs.etag }} \
-      #       --distribution-config file://distribution-config.json
+      # 6. CloudFront ディストリビューションを更新
+      - name: Update CloudFront distribution
+        run: |
+          aws cloudfront update-distribution \
+            --id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --if-match ${{ steps.extract_etag.outputs.etag }} \
+            --distribution-config file://distribution-config.json
